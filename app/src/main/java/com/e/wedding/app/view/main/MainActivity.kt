@@ -1,4 +1,4 @@
-package com.e.wedding.app.view
+package com.e.wedding.app.view.main
 
 import android.os.Bundle
 import android.view.Menu
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     //fun download
 
-    fun setupDrawerLayout(){
+    private fun setupDrawerLayout(){
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
