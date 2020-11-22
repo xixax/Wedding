@@ -1,4 +1,4 @@
-package com.e.wedding.ui.slideshow
+package com.e.wedding.app.view.slideshow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
