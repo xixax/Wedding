@@ -10,4 +10,12 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="okay">Okay</string>
+
+    <string name="internet_title_dialog_alert">Not able to connect to the internet!</string>
+    <string name="internet_message_dialog_alert">Hi all, thank you for using our app :D To be able to log in and get the latest news on our fantastic wedding you will need to get a internet connection on your phone.</string>
+
+    <string name="config_file_title_dialog_alert">Ups!</string>
+    <string name="config_file_message_dialog_alert">Hi all, thank you for using our app :D It appears there is a problem on our server so it is possible that the app is not working properly. We are very sorry for this and will try to fix it as fast as possible.</string>
 </resources>
