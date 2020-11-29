@@ -15,15 +15,15 @@ class SlideshowFragment : Fragment() {
     private lateinit var slideshowViewModel: SlideshowViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel::class.java)
+            ViewModelProviders.of(this).get(SlideshowViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
         val textView: TextView = root.findViewById(R.id.text_slideshow)
-        textView.text = DataHolder.getGuest()?.username
+        textView.text = DataHolder.getGuest()?.boda
         return root
     }
 }
