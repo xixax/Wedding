@@ -1,4 +1,4 @@
-package com.e.wedding.ui.gallery
+package com.e.wedding.app.view.main.gallery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
