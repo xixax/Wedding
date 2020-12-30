@@ -7,14 +7,19 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Nav bar-->
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
+    <!-- Strings related to get config -->
     <string name="internet_title_dialog_alert">No internet connection was found!</string>
     <string name="internet_message_dialog_alert">Hi guys! Thank you very much for being part of our special day. We are sorry to bother you with this but without access to the internet some app features will not be available.</string>
     <string name="okay">Okay</string>
-
     <string name="config_file_title_dialog_alert">Ups!</string>
     <string name="config_file_message_dialog_alert">We are very sorry for this but it appears there is a issue on our server we will try to resolve it as fast as possible.</string>
+
+    <!-- Strings related to login -->
+    <string name="button_text_login">Login</string>
+    <string name="button_text_logout">Logout</string>
 </resources>
