@@ -13,7 +13,7 @@
 
     <string name="internet_title_dialog_alert">No internet connection was found!</string>
     <string name="internet_message_dialog_alert">Hi guys! Thank you very much for being part of our special day. We are sorry to bother you with this but without access to the internet some app features will not be available.</string>
-    <string name="okay">Slideshow</string>
+    <string name="okay">Okay</string>
 
     <string name="config_file_title_dialog_alert">Ups!</string>
     <string name="config_file_message_dialog_alert">We are very sorry for this but it appears there is a issue on our server we will try to resolve it as fast as possible.</string>

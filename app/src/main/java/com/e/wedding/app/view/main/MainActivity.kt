@@ -46,14 +46,7 @@ class MainActivity : AppCompatActivity() {
                 downloadParseConfigFile()
             } catch (e: Exception) {
                 runOnUiThread {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle(R.string.internet_title_dialog_alert)
-                    builder.setMessage(R.string.internet_message_dialog_alert)
-                    builder.setNeutralButton(R.string.okay) { dialog, _ ->
-                        dialog.cancel()
-                        dialog.dismiss()
-                    }
-                    builder.show()
+                    showErrorNeutralMessage(resources.getString(R.string.internet_title_dialog_alert),resources.getString(R.string.internet_message_dialog_alert),resources.getString(R.string.okay))
                 }
             }
         }
@@ -78,22 +71,22 @@ class MainActivity : AppCompatActivity() {
                 if (appBarConfiguration != null) {
                     DataHolder.setGuest(appBarConfiguration)
                 } else {
-                    showErrorMessage()
+                    showErrorNeutralMessage(resources.getString(R.string.config_file_title_dialog_alert),resources.getString(R.string.config_file_message_dialog_alert),resources.getString(R.string.okay))
                 }
             }
 
             override fun onFailure(call: Call<AppConfiguration>, t: Throwable) {
-                showErrorMessage()
+                showErrorNeutralMessage(resources.getString(R.string.config_file_title_dialog_alert),resources.getString(R.string.config_file_message_dialog_alert),resources.getString(R.string.okay))
             }
 
         })
     }
 
-    private fun showErrorMessage() {
+    private fun showErrorNeutralMessage(title:String, msg: String,button_text:String) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.config_file_title_dialog_alert)
-        builder.setMessage(R.string.config_file_message_dialog_alert)
-        builder.setNeutralButton(R.string.okay) { dialog, _ ->
+        builder.setTitle(title)
+        builder.setMessage(msg)
+        builder.setNeutralButton(button_text) { dialog, _ ->
             dialog.cancel()
             dialog.dismiss()
         }
