@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="@string/button_text_logout"
+        android:text="@string/button_text_login"
         android:textColor="@color/design_default_color_surface"
         android:textSize="@dimen/button_login_horizontal_text_size"
         android:textStyle="bold"
