@@ -22,9 +22,8 @@ class LoginFragment : Fragment() {
     ): View? {
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_login, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        textView.text = DataHolder.getGuest()?.boda
-
+        val textView: TextView = root.findViewById(R.id.text_login)
+        textView.text = DataHolder.getAppConfig()?.boda
 
         return root
     }

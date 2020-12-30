@@ -2,8 +2,9 @@ package com.e.wedding.app.view.main
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -46,7 +47,13 @@ class MainActivity : AppCompatActivity() {
                 downloadParseConfigFile()
             } catch (e: Exception) {
                 runOnUiThread {
-                    showErrorNeutralMessage(resources.getString(R.string.internet_title_dialog_alert),resources.getString(R.string.internet_message_dialog_alert),resources.getString(R.string.okay))
+                    showErrorNeutralMessage(
+                        resources.getString(R.string.internet_title_dialog_alert),
+                        resources.getString(
+                            R.string.internet_message_dialog_alert
+                        ),
+                        resources.getString(R.string.okay)
+                    )
                 }
             }
         }
@@ -69,20 +76,32 @@ class MainActivity : AppCompatActivity() {
             ) {
                 val appBarConfiguration = response.body()
                 if (appBarConfiguration != null) {
-                    DataHolder.setGuest(appBarConfiguration)
+                    DataHolder.setAppConfig(appBarConfiguration)
                 } else {
-                    showErrorNeutralMessage(resources.getString(R.string.config_file_title_dialog_alert),resources.getString(R.string.config_file_message_dialog_alert),resources.getString(R.string.okay))
+                    showErrorNeutralMessage(
+                        resources.getString(R.string.config_file_title_dialog_alert),
+                        resources.getString(
+                            R.string.config_file_message_dialog_alert
+                        ),
+                        resources.getString(R.string.okay)
+                    )
                 }
             }
 
             override fun onFailure(call: Call<AppConfiguration>, t: Throwable) {
-                showErrorNeutralMessage(resources.getString(R.string.config_file_title_dialog_alert),resources.getString(R.string.config_file_message_dialog_alert),resources.getString(R.string.okay))
+                showErrorNeutralMessage(
+                    resources.getString(R.string.config_file_title_dialog_alert),
+                    resources.getString(
+                        R.string.config_file_message_dialog_alert
+                    ),
+                    resources.getString(R.string.okay)
+                )
             }
 
         })
     }
 
-    private fun showErrorNeutralMessage(title:String, msg: String,button_text:String) {
+    private fun showErrorNeutralMessage(title: String, msg: String, button_text: String) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(title)
         builder.setMessage(msg)
@@ -109,6 +128,22 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    fun onLoginClick(view: View)
+    {
+        val logintextview: TextView = view.findViewById(R.id.button_login_main)
+        when (logintextview.text) {
+            resources.getString(R.string.button_text_login) -> {
+                val navController = findNavController(R.id.nav_host_fragment)
+                navController.navigateUp() // to clear previous navigation history
+                navController.navigate(R.id.loginFragment)
+            }
+            resources.getString(R.string.button_text_logout) -> {
+                DataHolder.setGuestLoggedIn(null)
+                logintextview.setText(R.string.button_text_login)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

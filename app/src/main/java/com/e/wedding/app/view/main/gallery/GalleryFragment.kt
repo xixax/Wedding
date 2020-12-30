@@ -22,7 +22,7 @@ class GalleryFragment : Fragment() {
         galleryViewModel = ViewModelProvider(this).get(GalleryViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_gallery, container, false)
         val textView: TextView = root.findViewById(R.id.text_gallery)
-        textView.text = DataHolder.getGuest()?.boda
+        textView.text = DataHolder.getAppConfig()?.boda
         return root
     }
 }

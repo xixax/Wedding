@@ -23,7 +23,7 @@ class SlideshowFragment : Fragment() {
         slideshowViewModel = ViewModelProvider(this).get(SlideshowViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
         val textView: TextView = root.findViewById(R.id.text_slideshow)
-        textView.text = DataHolder.getGuest()?.boda
+        textView.text = DataHolder.getAppConfig()?.boda
         return root
     }
 }

@@ -6,12 +6,21 @@ object DataHolder {
     const val APP_MAIN_CONFIG_URL: String =
         "https://drive.google.com/file/d/1T7V41tbAWiRbgS6EDlXRgAc7Gd6h5IBn/view?usp=sharing"
     private var mAppConfiguration: AppConfiguration? = null
+    private var guestLoggedIn: Guest? = null
 
-    fun setGuest(appConfig: AppConfiguration) {
+    fun setAppConfig(appConfig: AppConfiguration) {
         mAppConfiguration = appConfig
     }
 
-    fun getGuest(): AppConfiguration? {
+    fun getAppConfig(): AppConfiguration? {
         return mAppConfiguration
+    }
+
+    fun setGuestLoggedIn(guest: Guest?) {
+        guestLoggedIn = guest
+    }
+
+    fun getGuestLoggedIn(): Guest? {
+        return guestLoggedIn
     }
 }
