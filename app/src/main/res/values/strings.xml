@@ -12,6 +12,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_login" />
+    <string name="menu_guest_name">Welcome to our wedding app!</string>
 
     <!-- Strings related to get config -->
     <string name="internet_title_dialog_alert">No internet connection was found!</string>
@@ -23,4 +24,8 @@
     <!-- Strings related to login -->
     <string name="button_text_login">Login</string>
     <string name="button_text_logout">Logout</string>
+    <string name="text_username">Username</string>
+    <string name="text_password">Password</string>
+    <string name="error_wrong_user_details_title">Incorrect Credentials</string>
+    <string name="error_wrong_user_details_msg">Your username or password may be wrong, please try again or contact us to resquest the details.</string>
 </resources>

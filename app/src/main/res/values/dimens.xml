@@ -11,6 +11,7 @@
     <!-- paddings -->
     <dimen name="button_login_horizontal_right_padding">16dp</dimen>
     <dimen name="button_login_horizontal_left_padding">16dp</dimen>
+    <dimen name="login_horizontal_padding">16dp</dimen>
     <!-- text sizes -->
     <dimen name="button_login_horizontal_text_size">14sp</dimen>
 </resources>
