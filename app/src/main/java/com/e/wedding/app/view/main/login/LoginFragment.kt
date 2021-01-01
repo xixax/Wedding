@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.e.wedding.R
 import com.e.wedding.app.model.DataHolder
+import java.lang.Exception
 
 class LoginFragment : Fragment() {
 
@@ -28,32 +29,51 @@ class LoginFragment : Fragment() {
 
         val submitLoginRequest: Button = root.findViewById(R.id.button_login)
         submitLoginRequest.setOnClickListener {
-            val username: TextView = root.findViewById(R.id.username_input)
-            val password: TextView = root.findViewById(R.id.password_input)
-            val guests = DataHolder.getAppConfig()?.convidados
-            val guest = guests?.firstOrNull {g -> g.username == username.text.toString() && g.password == password.text.toString() }
 
-            if (guest != null) {
-                DataHolder.setGuestLoggedIn(guest)
-                val logintextview: TextView? = this.activity?.findViewById(R.id.button_login_main)
-                logintextview?.setText(R.string.button_text_logout)
-                val usernamemnu: TextView? = this.activity?.findViewById(R.id.guest_name)
-                usernamemnu?.setText(guest.username)
-                this.activity?.onBackPressed()
-            } else {
-                this.activity?.runOnUiThread {
-                    val builder = AlertDialog.Builder(root.context)
-                    builder.setTitle(resources.getString(R.string.error_wrong_user_details_title))
-                    builder.setMessage(resources.getString(R.string.error_wrong_user_details_msg))
-                    builder.setNeutralButton(resources.getString(R.string.okay)) { dialog, _ ->
-                        dialog.cancel()
-                        dialog.dismiss()
+            try {
+                val username: TextView = root.findViewById(R.id.username_input)
+                val password: TextView = root.findViewById(R.id.password_input)
+                val guests = DataHolder.getAppConfig()?.convidados
+                val guest = guests?.firstOrNull {g -> g.username == username.text.toString() && g.password == password.text.toString() }
+
+                if (guest != null) {
+                    DataHolder.setGuestLoggedIn(guest)
+                    val logintextview: TextView? = this.activity?.findViewById(R.id.button_login_main)
+                    logintextview?.setText(R.string.button_text_logout)
+                    val usernamemnu: TextView? = this.activity?.findViewById(R.id.guest_name)
+                    usernamemnu?.setText(guest.username)
+                    this.activity?.onBackPressed()
+                } else {
+                    this.activity?.runOnUiThread {
+                        showErrorNeutralMessage(root,
+                            resources.getString(R.string.error_wrong_user_details_title),
+                            resources.getString(R.string.error_wrong_user_details_msg),
+                            resources.getString(R.string.okay))
                     }
-                    builder.show()
+                }
+            }catch (e:Exception)
+            {
+                this.activity?.runOnUiThread {
+                    showErrorNeutralMessage(root,
+                        resources.getString(R.string.error_login_title),
+                        resources.getString(R.string.error_login_msg),
+                        resources.getString(R.string.okay))
                 }
             }
+
         }
 
         return root
+    }
+
+    private fun showErrorNeutralMessage(view:View,title: String, msg: String, button_text: String) {
+        val builder = AlertDialog.Builder(view.context)
+        builder.setTitle(title)
+        builder.setMessage(msg)
+        builder.setNeutralButton(button_text) { dialog, _ ->
+            dialog.cancel()
+            dialog.dismiss()
+        }
+        builder.show()
     }
 }

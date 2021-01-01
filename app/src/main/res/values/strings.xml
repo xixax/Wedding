@@ -13,6 +13,12 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_login" />
     <string name="menu_guest_name">Welcome to our wedding app!</string>
+    <string name="menu_invite">Invite</string>
+    <string name="menu_ceremony">Ceremony</string>
+    <string name="menu_engagement">Engagement</string>
+    <string name="menu_menu">Menu</string>
+    <string name="menu_gift">Gift</string>
+    <string name="menu_about_us">About Us</string>
 
     <!-- Strings related to get config -->
     <string name="internet_title_dialog_alert">No internet connection was found!</string>
@@ -28,4 +34,10 @@
     <string name="text_password">Password</string>
     <string name="error_wrong_user_details_title">Incorrect Credentials</string>
     <string name="error_wrong_user_details_msg">Your username or password may be wrong, please try again or contact us to resquest the details.</string>
+    <string name="error_login_title">Login failed</string>
+    <string name="error_login_msg">We are really sorry for this, but it appears our app logging page is not working properly. Please send us a message for us to resolve as fast as possible.</string>
+
+    <!-- Strings related to Ceremony -->
+    <string name="error_ceremony_map_title">Login failed</string>
+    <string name="error_ceremony_map_msg">We are really sorry for this, but it appears our app logging page is not working properly. Please send us a message for us to resolve as fast as possible.</string>
 </resources>

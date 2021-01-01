@@ -8,9 +8,13 @@ data class AppConfiguration(
     @Expose
     val boda: String,
 
-    @SerializedName("googleMapsCerimonia")
+    @SerializedName("googleMapsCerimoniaLatitude")
     @Expose
-    val cerimonia: String,
+    val cerimoniaLatitude: String,
+
+    @SerializedName("googleMapsCerimoniaLongitude")
+    @Expose
+    val cerimoniaLongitude: String,
 
     @SerializedName("convidados")
     @Expose

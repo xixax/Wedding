@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -139,13 +139,16 @@ class MainActivity : AppCompatActivity() {
             resources.getString(R.string.button_text_login) -> {
                 val navController = findNavController(R.id.nav_host_fragment)
                 navController.navigateUp() // to clear previous navigation history
-                navController.navigate(R.id.loginFragment)
+                navController.navigate(R.id.nav_login)
             }
             resources.getString(R.string.button_text_logout) -> {
                 DataHolder.setGuestLoggedIn(null)
                 val usernamemnu: TextView? = view.findViewById(R.id.guest_name)
                 usernamemnu?.setText(R.string.menu_guest_name)
                 logintextview.setText(R.string.button_text_login)
+                val navController = findNavController(R.id.nav_host_fragment)
+                navController.navigateUp() // to clear previous navigation history
+                navController.navigate(R.id.nav_home)
             }
         }
     }

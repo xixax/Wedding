@@ -11,9 +11,9 @@ data class Guest(
     @Expose
     val password: String,
     //Image that will appear as pages. There will be a option to download
-    @SerializedName("conviteImagem")
+    @SerializedName("convitetext1")
     @Expose
-    val conviteImagem: String,
+    val convitetext1: String,
     @SerializedName("menuImagem")
     @Expose
     val menuImagem: String,
