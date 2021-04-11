@@ -29,6 +29,7 @@
 
     <!-- Strings related to login -->
     <string name="button_text_login">Login</string>
+    <string name="button_text_cancel">Cancel</string>
     <string name="button_text_logout">Logout</string>
     <string name="text_username">Username</string>
     <string name="text_password">Password</string>

@@ -1,12 +1,11 @@
 package com.e.wedding.app.view.main
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
-import android.view.Menu
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         setupDrawerLayout()
     }
 
-    fun initializeAppConfig() {
+    private fun initializeAppConfig() {
         val thread = Thread {
             try {
                 InetAddress.getByName("google.com")
@@ -51,11 +50,11 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 runOnUiThread {
                     showErrorNeutralMessage(
-                        resources.getString(R.string.internet_title_dialog_alert),
-                        resources.getString(
-                            R.string.internet_message_dialog_alert
-                        ),
-                        resources.getString(R.string.okay)
+                            resources.getString(R.string.internet_title_dialog_alert),
+                            resources.getString(
+                                    R.string.internet_message_dialog_alert
+                            ),
+                            resources.getString(R.string.okay)
                     )
                 }
             }
@@ -74,30 +73,30 @@ class MainActivity : AppCompatActivity() {
         val appConfig: Call<AppConfiguration> = service.appConfig
         appConfig.enqueue(object : Callback<AppConfiguration> {
             override fun onResponse(
-                call: Call<AppConfiguration>,
-                response: Response<AppConfiguration>
+                    call: Call<AppConfiguration>,
+                    response: Response<AppConfiguration>
             ) {
                 val appBarConfiguration = response.body()
                 if (appBarConfiguration != null) {
                     DataHolder.setAppConfig(appBarConfiguration)
                 } else {
                     showErrorNeutralMessage(
-                        resources.getString(R.string.config_file_title_dialog_alert),
-                        resources.getString(
-                            R.string.config_file_message_dialog_alert
-                        ),
-                        resources.getString(R.string.okay)
+                            resources.getString(R.string.config_file_title_dialog_alert),
+                            resources.getString(
+                                    R.string.config_file_message_dialog_alert
+                            ),
+                            resources.getString(R.string.okay)
                     )
                 }
             }
 
             override fun onFailure(call: Call<AppConfiguration>, t: Throwable) {
                 showErrorNeutralMessage(
-                    resources.getString(R.string.config_file_title_dialog_alert),
-                    resources.getString(
-                        R.string.config_file_message_dialog_alert
-                    ),
-                    resources.getString(R.string.okay)
+                        resources.getString(R.string.config_file_title_dialog_alert),
+                        resources.getString(
+                                R.string.config_file_message_dialog_alert
+                        ),
+                        resources.getString(R.string.okay)
                 )
             }
 
@@ -125,10 +124,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
-                    R.id.nav_gift,R.id.nav_about_us
-            ), drawerLayout
+                setOf(
+                        R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
+                        R.id.nav_gift, R.id.nav_about_us
+                ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -139,14 +138,56 @@ class MainActivity : AppCompatActivity() {
         val logintextview: TextView = view.findViewById(R.id.button_login_main)
         when (logintextview.text) {
             resources.getString(R.string.button_text_login) -> {
-                val navController = findNavController(R.id.nav_host_fragment)
-                navController.navigateUp() // to clear previous navigation history
-                navController.navigate(R.id.nav_login)
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle(R.string.button_text_login)
+
+                val viewInflated: View = LayoutInflater.from(this).inflate(R.layout.content_login_layout, findViewById(android.R.id.content), false)
+                val username = viewInflated.findViewById<View>(R.id.username_input) as EditText
+                val password = viewInflated.findViewById<View>(R.id.password_input) as EditText
+                val errorLogin = viewInflated.findViewById<View>(R.id.textView_FailedLogin) as TextView
+                builder.setView(viewInflated)
+
+                builder.setPositiveButton(R.string.button_text_login, null)// { dialog,
+                builder.setNegativeButton(R.string.button_text_cancel) { dialog, _ -> dialog.cancel() }
+
+                val dialog = builder.create()
+                dialog.setOnShowListener {
+                    val button: Button = (dialog as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE)
+                    button.setOnClickListener {
+                        try {
+                            val guests = DataHolder.getAppConfig()?.convidados
+                            val guest = guests?.firstOrNull {g -> g.username == username.text.toString() && g.password == password.text.toString() }
+
+                            if (guest != null) {
+                                DataHolder.setGuestLoggedIn(guest)
+                                val loginTextView: TextView? = findViewById(R.id.button_login_main)
+                                loginTextView?.setText(R.string.button_text_logout)
+                                val userNameMenu: TextView? = findViewById(R.id.guest_name)
+                                userNameMenu?.text = guest.username
+
+                                val navController = findNavController(R.id.nav_host_fragment)
+                                navController.navigateUp() // to clear previous navigation history
+                                navController.navigate(R.id.nav_home)
+
+                                dialog.dismiss()
+                            } else {
+                                errorLogin.text=resources.getString(R.string.error_wrong_user_details_msg)
+                                errorLogin.visibility = View.VISIBLE
+                            }
+                        }catch (e: java.lang.Exception)
+                        {
+                            errorLogin.text=resources.getString(R.string.error_login_msg)
+                            errorLogin.visibility = View.VISIBLE
+                        }
+                    }
+                }
+                dialog.show()
+
             }
             resources.getString(R.string.button_text_logout) -> {
                 DataHolder.setGuestLoggedIn(null)
                 val usernamemnu: TextView? = view.findViewById(R.id.guest_name)
-                usernamemnu?.setText(R.string.menu_guest_name)
+                usernamemnu?.text = resources.getString(R.string.menu_guest_name)
                 logintextview.setText(R.string.button_text_login)
                 val navController = findNavController(R.id.nav_host_fragment)
                 navController.navigateUp() // to clear previous navigation history
