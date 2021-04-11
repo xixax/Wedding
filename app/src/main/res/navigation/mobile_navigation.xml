@@ -31,6 +31,24 @@
         tools:layout="@layout/fragment_engagement" />
 
     <fragment
+        android:id="@+id/nav_food_menu"
+        android:name="com.e.wedding.app.view.main.menu.MenuFragment"
+        android:label="@string/menu_menu"
+        tools:layout="@layout/fragment_menu" />
+
+    <fragment
+        android:id="@+id/nav_gift"
+        android:name="com.e.wedding.app.view.main.gift.GiftFragment"
+        android:label="@string/menu_gift"
+        tools:layout="@layout/fragment_gift" />
+
+    <fragment
+        android:id="@+id/nav_about_us"
+        android:name="com.e.wedding.app.view.main.about_us.AboutUsFragment"
+        android:label="@string/menu_about_us"
+        tools:layout="@layout/fragment_about_us" />
+
+    <fragment
         android:id="@+id/nav_login"
         android:name="com.e.wedding.app.view.main.login.LoginFragment"
         android:label="@string/menu_login"
