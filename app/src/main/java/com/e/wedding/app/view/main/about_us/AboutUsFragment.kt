@@ -1,4 +1,4 @@
-package com.e.wedding.app.view.main.gallery
+package com.e.wedding.app.view.main.about_us
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,19 +10,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.e.wedding.R
 import com.e.wedding.app.model.DataHolder
 
-class GalleryFragment : Fragment() {
+class AboutUsFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var aboutUsViewModel: AboutUsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel = ViewModelProvider(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        textView.text = DataHolder.getAppConfig()?.boda
+        aboutUsViewModel = ViewModelProvider(this).get(AboutUsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_engagement, container, false)
+        val textView: TextView = root.findViewById(R.id.text_engagement)
+        textView.text = DataHolder.getGuestLoggedIn()?.convitetext1 ?: "User ainda nao fez login"
         return root
     }
 }

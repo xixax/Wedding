@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.Menu
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -125,7 +126,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
+                    R.id.nav_gift,R.id.nav_about_us
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -139,23 +141,26 @@ class MainActivity : AppCompatActivity() {
             resources.getString(R.string.button_text_login) -> {
                 val navController = findNavController(R.id.nav_host_fragment)
                 navController.navigateUp() // to clear previous navigation history
-                navController.navigate(R.id.loginFragment)
+                navController.navigate(R.id.nav_login)
             }
             resources.getString(R.string.button_text_logout) -> {
                 DataHolder.setGuestLoggedIn(null)
                 val usernamemnu: TextView? = view.findViewById(R.id.guest_name)
                 usernamemnu?.setText(R.string.menu_guest_name)
                 logintextview.setText(R.string.button_text_login)
+                val navController = findNavController(R.id.nav_host_fragment)
+                navController.navigateUp() // to clear previous navigation history
+                navController.navigate(R.id.nav_home)
             }
         }
     }
 
-
-    override fun onUserInteraction() {
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         }
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
