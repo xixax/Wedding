@@ -6,6 +6,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="description"></string>
 
     <!-- Nav bar-->
     <string name="menu_home">Home</string>
@@ -42,4 +43,9 @@
     <!-- Strings related to Ceremony -->
     <string name="error_ceremony_map_title">Login failed</string>
     <string name="error_ceremony_map_msg">We are really sorry for this, but it appears our app logging page is not working properly. Please send us a message for us to resolve as fast as possible.</string>
+
+    <!-- Strings related to menu -->
+    <string name="download_menu_not_found_title">We are very sorry!</string>
+    <string name="download_menu_not_found_text">We could not find the menu, please enter in contact with us!</string>
+
 </resources>
