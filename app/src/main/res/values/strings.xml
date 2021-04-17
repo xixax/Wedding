@@ -19,6 +19,7 @@
     <string name="menu_menu">Menu</string>
     <string name="menu_gift">Gift</string>
     <string name="menu_about_us">About Us</string>
+    <string name="menu_breakfast">Breakfast</string>
 
     <!-- Strings related to get config -->
     <string name="internet_title_dialog_alert">No internet connection was found!</string>

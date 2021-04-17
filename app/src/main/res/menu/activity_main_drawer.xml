@@ -11,6 +11,9 @@
             android:id="@+id/nav_invite"
             android:title="@string/menu_invite" />
         <item
+            android:id="@+id/nav_breakfast"
+            android:title="@string/menu_breakfast" />
+        <item
             android:id="@+id/nav_ceremony"
             android:title="@string/menu_ceremony" />
         <item
