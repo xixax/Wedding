@@ -19,6 +19,12 @@
         tools:layout="@layout/fragment_invite" />
 
     <fragment
+        android:id="@+id/nav_breakfast"
+        android:name="com.e.wedding.app.view.main.breakfast.BreakfastFragment"
+        android:label="@string/menu_breakfast"
+        tools:layout="@layout/fragment_breakfast" />
+
+    <fragment
         android:id="@+id/nav_ceremony"
         android:name="com.e.wedding.app.view.main.ceremony.CeremonyFragment"
         android:label="@string/menu_ceremony"

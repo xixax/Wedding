@@ -2,7 +2,10 @@ package com.e.wedding.app.view.main
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -10,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -126,11 +130,44 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
                 setOf(
                         R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
-                        R.id.nav_gift, R.id.nav_about_us
+                        R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast
                 ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val acc: DrawerListener = object : DrawerListener {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                // Action to onDrawerSlider
+                val userNameMenu: TextView? = findViewById(R.id.guest_name)
+                if(DataHolder.getGuestLoggedIn()!=null)
+                {
+                    userNameMenu?.text = DataHolder.getGuestLoggedIn()?.username
+
+                    if(DataHolder.getGuestLoggedIn()?.pequenoAlmoco=="true"){
+                        navView.menu.findItem(R.id.nav_breakfast).isVisible = true
+                    }
+                }else{
+                    userNameMenu?.text = resources.getString(R.string.menu_guest_name)
+                    navView.menu.findItem(R.id.nav_breakfast).isVisible = false
+                }
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                // Action to onDrawerOpened
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                // Action to onDrawerClosed
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+                // Action to onDrawerStateChanged
+            }
+        }
+
+        drawerLayout.addDrawerListener(acc);
+
     }
 
     fun onLoginClick(view: View)
@@ -156,14 +193,12 @@ class MainActivity : AppCompatActivity() {
                     button.setOnClickListener {
                         try {
                             val guests = DataHolder.getAppConfig()?.convidados
-                            val guest = guests?.firstOrNull {g -> g.username == username.text.toString() && g.password == password.text.toString() }
+                            val guest = guests?.firstOrNull { g -> g.username == username.text.toString() && g.password == password.text.toString() }
 
                             if (guest != null) {
                                 DataHolder.setGuestLoggedIn(guest)
                                 val loginTextView: TextView? = findViewById(R.id.button_login_main)
                                 loginTextView?.setText(R.string.button_text_logout)
-                                val userNameMenu: TextView? = findViewById(R.id.guest_name)
-                                userNameMenu?.text = guest.username
 
                                 val navController = findNavController(R.id.nav_host_fragment)
                                 navController.navigateUp() // to clear previous navigation history
@@ -171,12 +206,11 @@ class MainActivity : AppCompatActivity() {
 
                                 dialog.dismiss()
                             } else {
-                                errorLogin.text=resources.getString(R.string.error_wrong_user_details_msg)
+                                errorLogin.text = resources.getString(R.string.error_wrong_user_details_msg)
                                 errorLogin.visibility = View.VISIBLE
                             }
-                        }catch (e: java.lang.Exception)
-                        {
-                            errorLogin.text=resources.getString(R.string.error_login_msg)
+                        } catch (e: java.lang.Exception) {
+                            errorLogin.text = resources.getString(R.string.error_login_msg)
                             errorLogin.visibility = View.VISIBLE
                         }
                     }
@@ -186,8 +220,6 @@ class MainActivity : AppCompatActivity() {
             }
             resources.getString(R.string.button_text_logout) -> {
                 DataHolder.setGuestLoggedIn(null)
-                val usernamemnu: TextView? = view.findViewById(R.id.guest_name)
-                usernamemnu?.text = resources.getString(R.string.menu_guest_name)
                 logintextview.setText(R.string.button_text_login)
                 val navController = findNavController(R.id.nav_host_fragment)
                 navController.navigateUp() // to clear previous navigation history
