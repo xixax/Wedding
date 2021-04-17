@@ -1,8 +1,10 @@
 package com.e.wedding.app.view.main.menu
 
+import android.Manifest
 import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -10,17 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.e.wedding.R
 import com.e.wedding.app.model.DataHolder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.io.DataInputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
 import java.net.InetAddress
-import java.net.URL
 
 
 class MenuFragment : Fragment() {
@@ -65,16 +63,22 @@ class MenuFragment : Fragment() {
         try {
             if(DataHolder.getGuestLoggedIn()!=null)
             {
-                val downloadmanager = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
-                val uri: Uri = Uri.parse(DataHolder.getGuestLoggedIn()?.menuDocumento)
+                if (activity?.let { ActivityCompat.checkSelfPermission(it, Manifest.permission.READ_EXTERNAL_STORAGE) } != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    activity?.let { ActivityCompat.requestPermissions(it, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), 1) }
+                    // this will request for permission when permission is not true
+                } else {
+                    // Download code here
+                    val downloadmanager = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
+                    val uri: Uri = Uri.parse(DataHolder.getGuestLoggedIn()?.menuDocumento)
 
-                val request = DownloadManager.Request(uri)
-                request.setTitle("JD_Wedding_Menu")
-                request.setDescription("Downloading")
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    val request = DownloadManager.Request(uri)
+                    request.setTitle("JD_Wedding_Menu")
+                    request.setDescription("Downloading")
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "JD_Wedding_Menu.pdf")
-                downloadmanager!!.enqueue(request)
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "JD_Wedding_Menu.pdf")
+                    downloadmanager!!.enqueue(request)
+                }
             }else{
                 activity?.runOnUiThread {
                     showErrorNeutralMessage(
