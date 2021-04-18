@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.findNavController
@@ -34,7 +35,6 @@ import java.net.InetAddress
 
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {

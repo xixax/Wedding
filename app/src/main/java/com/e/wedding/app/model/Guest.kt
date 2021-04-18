@@ -39,5 +39,10 @@ data class Guest(
     val pequenoAlmocoDetalhes: String,
     @SerializedName("googleMapsPequenoAlmoco")
     @Expose
-    val googleMapsPequenoAlmoco: String
+    val googleMapsPequenoAlmoco: String,
+
+    //Menu menuDocumento
+    @SerializedName("menuDocumento")
+    @Expose
+    val menuDocumento: String
 )
