@@ -1,6 +1,10 @@
 package com.e.wedding.app.view.main
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,7 +16,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.findNavController
@@ -31,7 +35,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
+import java.io.InputStream
+import java.net.HttpURLConnection
 import java.net.InetAddress
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,6 +59,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 InetAddress.getByName("google.com")
                 downloadParseConfigFile()
+
             } catch (e: Exception) {
                 runOnUiThread {
                     showErrorNeutralMessage(

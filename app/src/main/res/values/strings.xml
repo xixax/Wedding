@@ -14,9 +14,9 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_login" />
     <string name="menu_guest_name">Welcome to our wedding app!</string>
-    <string name="menu_invite">Invite</string>
+    <string name="menu_invite">Invitation</string>
     <string name="menu_ceremony">Ceremony</string>
-    <string name="menu_engagement">Engagement</string>
+    <string name="menu_engagement">Reception</string>
     <string name="menu_menu">Menu</string>
     <string name="menu_gift">Gift</string>
     <string name="menu_about_us">About Us</string>

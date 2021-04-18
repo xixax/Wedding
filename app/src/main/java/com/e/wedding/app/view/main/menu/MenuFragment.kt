@@ -11,13 +11,18 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.e.wedding.R
 import com.e.wedding.app.model.DataHolder
+import com.e.wedding.app.model.Image
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_menu.*
 import java.net.InetAddress
 
 
@@ -32,8 +37,8 @@ class MenuFragment : Fragment() {
     ): View? {
         menuViewModel = ViewModelProvider(this).get(MenuViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_menu, container, false)
-        val textView: TextView = root.findViewById(R.id.text_menu)
-        textView.text = DataHolder.getGuestLoggedIn()?.convitetext1 ?: "User ainda nao fez login"
+//        val textView: TextView = root.findViewById(R.id.text_menu)
+//        textView.text = DataHolder.getGuestLoggedIn()?.convitetext1 ?: "User ainda nao fez login"
 
         val downloadMenu: FloatingActionButton = root.findViewById(R.id.menu_pdf_download)
         downloadMenu.setOnClickListener {
@@ -56,7 +61,18 @@ class MenuFragment : Fragment() {
             thread.start()
         }
 
+        val recyclerMenu: RecyclerView = root.findViewById(R.id.recycler_menu)
+        recyclerMenu.adapter = MenuAdapter(requireActivity(), GetMenuBackgroud())
+        recyclerMenu.layoutManager = LinearLayoutManager(requireActivity())
+
         return root
+    }
+
+    private fun GetMenuBackgroud():List<Image>{
+        val images = mutableListOf<Image>()
+        images.add(Image("https://drive.google.com/u/0/uc?id=1kzw6clDJ-uoseMpKB8dTqml9yjGpRIvV&export=download"))
+        images.add(Image("https://drive.google.com/u/0/uc?id=1MXVCqmt645Ww4VT5As2dA2PVrb2V4-EJ&export=download"))
+        return images
     }
 
     private fun menuPdfDownload(){
