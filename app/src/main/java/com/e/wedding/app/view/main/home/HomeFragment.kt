@@ -3,27 +3,24 @@ package com.e.wedding.app.view.main.home
 import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.e.wedding.R
-import com.e.wedding.app.model.DataHolder
+import com.bumptech.glide.Glide
+import com.e.wedding.databinding.FragmentHomeBinding
+import kotlinx.android.synthetic.main.menu_recycler_item.view.*
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
-import java.net.InetAddress
 import java.net.URL
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -31,36 +28,50 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+        setup()
+
+//        mActivityBinding = ActivityMytvSingleRecordingsManagementBinding.inflate(layoutInflater)
+//        setContentView(mActivityBinding.root)
 
 
-        val thread = Thread {
-            try {
-                InetAddress.getByName("google.com")
-                val myImage: Bitmap = getBitmapFromURL("https://drive.google.com/u/0/uc?id=1WXc8HlPGVC4h6FovNqnIYgRtfIMAEOAs&export=download")!!
-                val dr: Drawable = BitmapDrawable(resources, myImage)
-                activity?.runOnUiThread {
-                    val homeLayout: ConstraintLayout = (activity?.findViewById(R.id.home_layout) ?: null)!!
-                    if(homeLayout!=null){
-                        homeLayout.background = dr
-                    }
-                }
 
-            } catch (e: Exception) {
-                activity?.runOnUiThread {
-                    showErrorNeutralMessage(
-                        resources.getString(R.string.internet_title_dialog_alert),
-                        resources.getString(
-                            R.string.internet_message_dialog_alert
-                        ),
-                        resources.getString(R.string.okay)
-                    )
-                }
-            }
-        }
-        thread.start()
+//        val thread = Thread {
+//            try {
+//
+////                InetAddress.getByName("google.com")
+////                val myImage: Bitmap = getBitmapFromURL("https://drive.google.com/u/0/uc?id=1WXc8HlPGVC4h6FovNqnIYgRtfIMAEOAs&export=download")!!
+////                val dr: Drawable = BitmapDrawable(resources, myImage)
+////                activity?.runOnUiThread {
+////                    val homeLayout: ConstraintLayout = (activity?.findViewById(R.id.home_layout) ?: null)!!
+////                    if(homeLayout!=null){
+////                        homeLayout.background = dr
+////                    }
+////                }
+//
+//
+//
+//            } catch (e: Exception) {
+//                activity?.runOnUiThread {
+//                    showErrorNeutralMessage(
+//                        resources.getString(R.string.internet_title_dialog_alert),
+//                        resources.getString(
+//                            R.string.internet_message_dialog_alert
+//                        ),
+//                        resources.getString(R.string.okay)
+//                    )
+//                }
+//            }
+//        }
+//        thread.start()
 
-        return root
+        return binding.root
+    }
+
+    private fun setup(){
+        Glide.with(this)
+                .load("https://drive.google.com/u/0/uc?id=1WXc8HlPGVC4h6FovNqnIYgRtfIMAEOAs&export=download")
+                .into(binding.homeBackground)
     }
 
     private fun showErrorNeutralMessage(title: String, msg: String, button_text: String) {

@@ -5,4 +5,17 @@
     android:id="@+id/home_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.view.main.home.HomeFragment"/>
+    tools:context=".app.view.main.home.HomeFragment">
+
+    <ImageView
+        android:id="@+id/home_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription=""
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+</androidx.constraintlayout.widget.ConstraintLayout>
