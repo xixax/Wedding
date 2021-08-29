@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.view.main.gift.GiftFragment">
+    tools:context=".app.view.gift.GiftFragment">
 
     <TextView
         android:id="@+id/text_gift"

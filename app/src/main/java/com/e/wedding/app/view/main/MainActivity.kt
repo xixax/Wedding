@@ -26,9 +26,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.e.wedding.R
 import com.e.wedding.app.api.GetAppConfigService
+import com.e.wedding.app.base.BaseActivity
+import com.e.wedding.app.base.viewBinding
+import com.e.wedding.app.base.viewModel
 import com.e.wedding.app.model.AppConfiguration
 import com.e.wedding.app.model.DataHolder
 import com.e.wedding.app.utils.Values
+import com.e.wedding.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,12 +46,14 @@ import java.net.InetAddress
 import java.net.URL
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+    private val viewBinding by viewBinding(ActivityMainBinding::inflate)
+
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(viewBinding.root)
 
         initializeAppConfig()
 
@@ -63,11 +69,11 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 runOnUiThread {
                     showErrorNeutralMessage(
-                            resources.getString(R.string.internet_title_dialog_alert),
-                            resources.getString(
-                                    R.string.internet_message_dialog_alert
-                            ),
-                            resources.getString(R.string.okay)
+                        resources.getString(R.string.internet_title_dialog_alert),
+                        resources.getString(
+                            R.string.internet_message_dialog_alert
+                        ),
+                        resources.getString(R.string.okay)
                     )
                 }
             }
@@ -86,30 +92,30 @@ class MainActivity : AppCompatActivity() {
         val appConfig: Call<AppConfiguration> = service.appConfig
         appConfig.enqueue(object : Callback<AppConfiguration> {
             override fun onResponse(
-                    call: Call<AppConfiguration>,
-                    response: Response<AppConfiguration>
+                call: Call<AppConfiguration>,
+                response: Response<AppConfiguration>
             ) {
                 val appBarConfiguration = response.body()
                 if (appBarConfiguration != null) {
                     DataHolder.setAppConfig(appBarConfiguration)
                 } else {
                     showErrorNeutralMessage(
-                            resources.getString(R.string.config_file_title_dialog_alert),
-                            resources.getString(
-                                    R.string.config_file_message_dialog_alert
-                            ),
-                            resources.getString(R.string.okay)
+                        resources.getString(R.string.config_file_title_dialog_alert),
+                        resources.getString(
+                            R.string.config_file_message_dialog_alert
+                        ),
+                        resources.getString(R.string.okay)
                     )
                 }
             }
 
             override fun onFailure(call: Call<AppConfiguration>, t: Throwable) {
                 showErrorNeutralMessage(
-                        resources.getString(R.string.config_file_title_dialog_alert),
-                        resources.getString(
-                                R.string.config_file_message_dialog_alert
-                        ),
-                        resources.getString(R.string.okay)
+                    resources.getString(R.string.config_file_title_dialog_alert),
+                    resources.getString(
+                        R.string.config_file_message_dialog_alert
+                    ),
+                    resources.getString(R.string.okay)
                 )
             }
 
@@ -128,6 +134,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupDrawerLayout() {
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -137,10 +144,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-                setOf(
-                        R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
-                        R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast
-                ), drawerLayout
+            setOf(
+                R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
+                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast
+            ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -149,14 +156,13 @@ class MainActivity : AppCompatActivity() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 // Action to onDrawerSlider
                 val userNameMenu: TextView? = findViewById(R.id.guest_name)
-                if(DataHolder.getGuestLoggedIn()!=null)
-                {
+                if (DataHolder.getGuestLoggedIn() != null) {
                     userNameMenu?.text = DataHolder.getGuestLoggedIn()?.username
 
-                    if(DataHolder.getGuestLoggedIn()?.pequenoAlmoco=="true"){
+                    if (DataHolder.getGuestLoggedIn()?.pequenoAlmoco == "true") {
                         navView.menu.findItem(R.id.nav_breakfast).isVisible = true
                     }
-                }else{
+                } else {
                     userNameMenu?.text = resources.getString(R.string.menu_guest_name)
                     navView.menu.findItem(R.id.nav_breakfast).isVisible = false
                 }
@@ -179,8 +185,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun onLoginClick(view: View)
-    {
+    fun onLoginClick(view: View) {
         val logintextview: TextView = view.findViewById(R.id.button_login_main)
         when (logintextview.text) {
             resources.getString(R.string.button_text_login) -> {
@@ -254,9 +259,5 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    companion object {
-        const val TAG = "MainActivity"
     }
 }
