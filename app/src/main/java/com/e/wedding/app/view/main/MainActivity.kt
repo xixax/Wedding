@@ -155,15 +155,11 @@ class MainActivity : BaseActivity() {
         val acc: DrawerListener = object : DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 // Action to onDrawerSlider
-                val userNameMenu: TextView? = findViewById(R.id.guest_name)
                 if (DataHolder.getGuestLoggedIn() != null) {
-                    userNameMenu?.text = DataHolder.getGuestLoggedIn()?.username
-
                     if (DataHolder.getGuestLoggedIn()?.pequenoAlmoco == "true") {
                         navView.menu.findItem(R.id.nav_breakfast).isVisible = true
                     }
                 } else {
-                    userNameMenu?.text = resources.getString(R.string.menu_guest_name)
                     navView.menu.findItem(R.id.nav_breakfast).isVisible = false
                 }
             }
@@ -181,7 +177,7 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        drawerLayout.addDrawerListener(acc);
+        drawerLayout.addDrawerListener(acc)
 
     }
 
