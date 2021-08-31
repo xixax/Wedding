@@ -58,8 +58,12 @@ class MenuFragment : BaseFragment(R.layout.fragment_menu) {
 
     private fun GetMenuBackgroud(): List<Image> {
         val images = mutableListOf<Image>()
-        images.add(Image("https://drive.google.com/u/0/uc?id=1kzw6clDJ-uoseMpKB8dTqml9yjGpRIvV&export=download"))
-        images.add(Image("https://drive.google.com/u/0/uc?id=1MXVCqmt645Ww4VT5As2dA2PVrb2V4-EJ&export=download"))
+        if (DataHolder.getGuestLoggedIn()?.menu == "true"
+            && DataHolder.getGuestLoggedIn()?.menuBackground != null) {
+            for (s in DataHolder.getGuestLoggedIn()?.menuBackground!!) {
+                images.add(Image(s))
+            }
+        }
         return images
     }
 
@@ -85,7 +89,7 @@ class MenuFragment : BaseFragment(R.layout.fragment_menu) {
                     val request = DownloadManager.Request(uri)
                     request.setTitle("JD_Wedding_Menu")
                     request.setDescription("Downloading")
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
 
                     request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "JD_Wedding_Menu.pdf")
                     downloadmanager!!.enqueue(request)

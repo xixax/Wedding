@@ -32,6 +32,9 @@ data class Guest(
     @SerializedName("conviteDetalhes")
     @Expose
     val conviteDetalhes: String,
+    @SerializedName("conviteBackground")
+    @Expose
+    val conviteBackground: List<String>,
 
     //Breakfast
     @SerializedName("pequenoAlmoco")
@@ -51,6 +54,9 @@ data class Guest(
     @SerializedName("menuDocumento")
     @Expose
     val menuDocumento: String,
+    @SerializedName("menuBackground")
+    @Expose
+    val menuBackground: List<String>,
 
     //About
     @SerializedName("acerca")

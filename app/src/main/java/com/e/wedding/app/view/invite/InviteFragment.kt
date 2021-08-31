@@ -3,11 +3,14 @@ package com.e.wedding.app.view.invite
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.wedding.R
 import com.e.wedding.app.base.BaseFragment
 import com.e.wedding.app.base.viewBinding
 import com.e.wedding.app.base.viewModel
+import com.e.wedding.app.model.DataHolder
 import com.e.wedding.app.model.Image
+import com.e.wedding.app.view.menu.MenuAdapter
 import com.e.wedding.databinding.FragmentInviteBinding
 
 class InviteFragment : BaseFragment(R.layout.fragment_invite) {
@@ -21,12 +24,18 @@ class InviteFragment : BaseFragment(R.layout.fragment_invite) {
 
     private fun setupUI() = with(binding) {
         recyclerInvite.adapter = InviteAdapter(requireActivity(), GetInviteBackgroud())
+        recyclerInvite.layoutManager = LinearLayoutManager(requireActivity())
     }
 
     private fun GetInviteBackgroud(): List<Image> {
         val images = mutableListOf<Image>()
-        images.add(Image("https://drive.google.com/u/0/uc?id=1NoC1XYte0-VCsZXuEGAg92bLtHa1qFDA&export=download"))
-        images.add(Image("https://drive.google.com/u/0/uc?id=1sN7S9smNAfNGHtuxZB_OujnPdIzvCo0W&export=download"))
+        if (DataHolder.getGuestLoggedIn()?.convite == "true"
+            && DataHolder.getGuestLoggedIn()?.conviteBackground != null) {
+            for (s in DataHolder.getGuestLoggedIn()?.conviteBackground!!) {
+                images.add(Image(s))
+            }
+        }
+        //add error message
         return images
     }
 
