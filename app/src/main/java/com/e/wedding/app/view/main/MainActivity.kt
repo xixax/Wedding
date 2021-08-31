@@ -159,8 +159,32 @@ class MainActivity : BaseActivity() {
                     if (DataHolder.getGuestLoggedIn()?.pequenoAlmoco == "true") {
                         navView.menu.findItem(R.id.nav_breakfast).isVisible = true
                     }
+                    if (DataHolder.getGuestLoggedIn()?.convite == "true") {
+                        navView.menu.findItem(R.id.nav_invite).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.cerimonia == "true") {
+                        navView.menu.findItem(R.id.nav_ceremony).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.casamento == "true") {
+                        navView.menu.findItem(R.id.nav_engagement).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.menu == "true") {
+                        navView.menu.findItem(R.id.nav_food_menu).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.presente == "true") {
+                        navView.menu.findItem(R.id.nav_gift).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.acerca == "true") {
+                        navView.menu.findItem(R.id.nav_about_us).isVisible = true
+                    }
                 } else {
                     navView.menu.findItem(R.id.nav_breakfast).isVisible = false
+                    navView.menu.findItem(R.id.nav_invite).isVisible = false
+                    navView.menu.findItem(R.id.nav_ceremony).isVisible = false
+                    navView.menu.findItem(R.id.nav_engagement).isVisible = false
+                    navView.menu.findItem(R.id.nav_food_menu).isVisible = false
+                    navView.menu.findItem(R.id.nav_gift).isVisible = false
+                    navView.menu.findItem(R.id.nav_about_us).isVisible = false
                 }
             }
 
