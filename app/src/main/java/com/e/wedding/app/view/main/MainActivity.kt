@@ -146,7 +146,7 @@ class MainActivity : BaseActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
-                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast
+                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast, R.id.nav_gallery
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
