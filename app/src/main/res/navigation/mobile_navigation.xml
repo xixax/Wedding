@@ -10,7 +10,32 @@
         android:id="@+id/nav_home"
         android:name="com.e.wedding.app.view.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_ceremony"
+            app:destination="@id/nav_ceremony" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_invite"
+            app:destination="@id/nav_invite" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_breakfast"
+            app:destination="@id/nav_breakfast" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_food_menu"
+            app:destination="@id/nav_food_menu" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_engagement"
+            app:destination="@id/nav_engagement" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_about_us"
+            app:destination="@id/nav_about_us" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_gallery"
+            app:destination="@id/nav_gallery" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_gift"
+            app:destination="@id/nav_gift" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_invite"
@@ -48,16 +73,32 @@
         android:label="@string/menu_gift"
         tools:layout="@layout/fragment_gift" />
 
+
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.e.wedding.app.view.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gift" />
+        tools:layout="@layout/fragment_gift">
+        <action
+            android:id="@+id/action_nav_gallery_to_nav_slideshow"
+            app:destination="@id/nav_slideshow" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_about_us"
         android:name="com.e.wedding.app.view.about.AboutUsFragment"
         android:label="@string/menu_about_us"
         tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.e.wedding.app.view.slideshow.SlideShowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow">
+        <action
+            android:id="@+id/action_nav_slideshow_to_nav_gallery"
+            app:destination="@id/nav_gallery"
+            app:popUpTo="@id/nav_gallery" />
+    </fragment>
 
 </navigation>

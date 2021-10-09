@@ -10,7 +10,7 @@ import com.e.wedding.app.view.about.AboutUsViewModel
 import com.e.wedding.app.view.breakfast.BreakfastViewModel
 import com.e.wedding.app.view.ceremony.CeremonyViewModel
 import com.e.wedding.app.view.engagement.EngagementViewModel
-import com.e.wedding.app.view.gallery.GalleryViewModel
+import com.e.wedding.app.view.gallery.ImageViewModel
 import com.e.wedding.app.view.gift.GiftViewModel
 import com.e.wedding.app.view.home.HomeViewModel
 import com.e.wedding.app.view.invite.InviteViewModel
@@ -32,7 +32,7 @@ class ViewModelFactory(
         CeremonyViewModel::class.java -> CeremonyViewModel()
         EngagementViewModel::class.java -> EngagementViewModel()
         GiftViewModel::class.java -> GiftViewModel()
-        GalleryViewModel::class.java -> GalleryViewModel()
+        ImageViewModel::class.java -> ImageViewModel(activityComponent.navController)
         else -> throw RuntimeException("Oops! Did you forget to add $modelClass to ViewModelFactory?")
     } as T
 }

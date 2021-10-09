@@ -3,15 +3,16 @@ package com.e.wedding.app.view.gallery
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.e.wedding.app.model.Image
 
-class GalleryViewModel : ViewModel() {
+class ImageViewModel(private val navController: NavController) : ViewModel() {
 
     private val _images = MutableLiveData<List<Image>>()
     val images: LiveData<List<Image>> = _images
 
-    private val _mode = MutableLiveData(GalleryMode.Gallery)
-    val mode: LiveData<GalleryMode> = _mode
+    private val _imageSelected = MutableLiveData<Image>()
+    val imageSelected: LiveData<Image> = _imageSelected
 
     init {
         _images.value = getImages()
@@ -26,7 +27,8 @@ class GalleryViewModel : ViewModel() {
     }
 
     fun imageClick(image: Image) {
-        _mode.value = GalleryMode.SlideShow
+        _imageSelected.value = image
+        navController.navigate(GalleryFragmentDirections.actionNavGalleryToNavSlideshow())
     }
 
     fun imageLongClick(image: Image) {
