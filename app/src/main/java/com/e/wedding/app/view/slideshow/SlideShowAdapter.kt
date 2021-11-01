@@ -31,6 +31,11 @@ class SlideShowAdapter : RecyclerView.Adapter<SlideShowAdapter.SlideShowViewHold
         return images.size
     }
 
+    fun getItemPosition(image: Image): Int? {
+        val position = images.indexOf(image)
+        return if (position == -1) null else position
+    }
+
     fun updateImages(newImages: List<Image>) {
         val result = diff.updateImages(images, newImages)
         images.clear()
@@ -38,13 +43,13 @@ class SlideShowAdapter : RecyclerView.Adapter<SlideShowAdapter.SlideShowViewHold
         result.dispatchUpdatesTo(this)
     }
 
-    inner class SlideShowViewHolder(val binding: ViewSlideShowItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val options = RequestOptions()
-            .placeholder(ColorDrawable(binding.root.getColor(R.color.colorAccent)))
-            .error(ColorDrawable(binding.root.getColor(R.color.colorPrimary)))
+    class SlideShowViewHolder(private val binding: ViewSlideShowItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(image: Image) = with(binding) {
-            ivImage.load(image.url, options)
+        fun bind(image: Image) = with(binding.ivImage) {
+            val options = RequestOptions()
+                .placeholder(ColorDrawable(getColor(R.color.colorAccent)))
+                .error(ColorDrawable(getColor(R.color.colorPrimary)))
+            load(image.url, options)
         }
     }
 }

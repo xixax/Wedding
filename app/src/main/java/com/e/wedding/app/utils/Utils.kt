@@ -1,11 +1,12 @@
 package com.e.wedding.app.utils
 
-import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.e.wedding.app.base.BaseFragment
@@ -30,4 +31,14 @@ fun View.getColor(@ColorRes colorRes: Int): Int {
 
 fun BaseFragment.getColor(@ColorRes colorRes: Int): Int {
     return ContextCompat.getColor(requireContext(), colorRes)
+}
+
+fun RecyclerView.attachSnapHelper(snapHelper: SnapHelper) {
+    snapHelper.attachToRecyclerView(this)
+}
+
+fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
+    val layoutManager = recyclerView.layoutManager ?: return RecyclerView.NO_POSITION
+    val snapView = findSnapView(layoutManager) ?: return RecyclerView.NO_POSITION
+    return layoutManager.getPosition(snapView)
 }
