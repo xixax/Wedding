@@ -29,7 +29,7 @@ class InviteFragment : BaseFragment(R.layout.fragment_invite) {
 
     private fun GetInviteBackgroud(): List<Image> {
         val images = mutableListOf<Image>()
-        if (DataHolder.getGuestLoggedIn()?.convite == "true"
+        if (DataHolder.getGuestLoggedIn()?.conviteVisivel == "true"
             && DataHolder.getGuestLoggedIn()?.conviteBackground != null) {
             for (s in DataHolder.getGuestLoggedIn()?.conviteBackground!!) {
                 images.add(Image(s))

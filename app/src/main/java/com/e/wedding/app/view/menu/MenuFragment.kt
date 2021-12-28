@@ -58,7 +58,7 @@ class MenuFragment : BaseFragment(R.layout.fragment_menu) {
 
     private fun GetMenuBackgroud(): List<Image> {
         val images = mutableListOf<Image>()
-        if (DataHolder.getGuestLoggedIn()?.menu == "true"
+        if (DataHolder.getGuestLoggedIn()?.menuVisivel == "true"
             && DataHolder.getGuestLoggedIn()?.menuBackground != null) {
             for (s in DataHolder.getGuestLoggedIn()?.menuBackground!!) {
                 images.add(Image(s))

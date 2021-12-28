@@ -23,34 +23,28 @@ data class Guest(
 
     //Text strings
     //Invite
-    @SerializedName("convite")
+    @SerializedName("conviteVisivel")
     @Expose
-    val convite: String,
-    @SerializedName("conviteAceite")
-    @Expose
-    val conviteAceite: String,
-    @SerializedName("conviteDetalhes")
-    @Expose
-    val conviteDetalhes: String,
+    val conviteVisivel: String,
     @SerializedName("conviteBackground")
     @Expose
     val conviteBackground: List<String>,
 
     //Breakfast
-    @SerializedName("pequenoAlmoco")
+    @SerializedName("pequenoAlmocoVisivel")
     @Expose
-    val pequenoAlmoco: String,
-    @SerializedName("pequenoAlmocoDetalhes")
+    val pequenoAlmocoVisivel: String,
+    @SerializedName("pequenoAlmocoImagen")
     @Expose
-    val pequenoAlmocoDetalhes: String,
-    @SerializedName("googleMapsPequenoAlmoco")
+    val pequenoAlmocoImagen: String,
+    @SerializedName("googleMapsPequenoAlmocoUrl")
     @Expose
-    val googleMapsPequenoAlmoco: String,
+    val googleMapsPequenoAlmocoUrl: String,
 
     //Menu menu
-    @SerializedName("menu")
+    @SerializedName("menuVisivel")
     @Expose
-    val menu: String,
+    val menuVisivel: String,
     @SerializedName("menuDocumento")
     @Expose
     val menuDocumento: String,
@@ -59,23 +53,48 @@ data class Guest(
     val menuBackground: List<String>,
 
     //About
-    @SerializedName("acerca")
+    @SerializedName("acercaVisivel")
     @Expose
-    val acerca: String,
+    val acercaVisivel: String,
+    @SerializedName("acercaBackground")
+    @Expose
+    val acercaBackground: List<String>,
 
     //ceremony
-    @SerializedName("cerimonia")
+    @SerializedName("cerimoniaVisivel")
     @Expose
-    val cerimonia: String,
+    val cerimoniaVisivel: String,
+    @SerializedName("cerimoniaImagen")
+    @Expose
+    val cerimoniaImagen: String,
+    @SerializedName("googleMapsCerimoniaUrl")
+    @Expose
+    val googleMapsCerimoniaUrl: String,
 
     //engagement
-    @SerializedName("casamento")
+    @SerializedName("casamentoVisivel")
     @Expose
-    val casamento: String,
+    val casamentoVisivel: String,
+    @SerializedName("casamentoImagen")
+    @Expose
+    val casamentoImagen: String,
+    @SerializedName("googleMapsCasamentoUrl")
+    @Expose
+    val googleMapsCasamentoUrl: String,
 
     //gift
-    @SerializedName("presente")
+    @SerializedName("presenteVisivel")
     @Expose
-    val presente: String
+    val presenteVisivel: String,
+    @SerializedName("presenteBackground")
+    @Expose
+    val presenteBackground: List<String>,
 
+    //Gallery
+    @SerializedName("galeriaVisivel")
+    @Expose
+    val galeriaVisivel: String,
+    @SerializedName("galeriaBackground")
+    @Expose
+    val galeriaBackground: List<String>
 )
