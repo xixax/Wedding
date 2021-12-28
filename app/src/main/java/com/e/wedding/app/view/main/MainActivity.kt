@@ -17,6 +17,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.findNavController
@@ -202,11 +203,12 @@ class MainActivity : BaseActivity() {
         }
 
         drawerLayout.addDrawerListener(acc)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     fun onLoginClick(view: View) {
         val logintextview: TextView = view.findViewById(R.id.button_login_main)
+
         when (logintextview.text) {
             resources.getString(R.string.button_text_login) -> {
                 val builder = AlertDialog.Builder(this)
@@ -238,6 +240,8 @@ class MainActivity : BaseActivity() {
                                 navController.navigateUp() // to clear previous navigation history
                                 navController.navigate(R.id.nav_home)
 
+                                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
                                 dialog.dismiss()
                             } else {
                                 errorLogin.text = resources.getString(R.string.error_wrong_user_details_msg)
@@ -258,6 +262,8 @@ class MainActivity : BaseActivity() {
                 val navController = findNavController(R.id.nav_host_fragment)
                 navController.navigateUp() // to clear previous navigation history
                 navController.navigate(R.id.nav_home)
+
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
         }
     }
