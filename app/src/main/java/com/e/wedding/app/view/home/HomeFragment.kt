@@ -30,29 +30,4 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             .load("https://drive.google.com/u/0/uc?id=1WXc8HlPGVC4h6FovNqnIYgRtfIMAEOAs&export=download")
             .into(binding.homeBackground)
     }
-
-    private fun showErrorNeutralMessage(title: String, msg: String, button_text: String) {
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(title)
-        builder.setMessage(msg)
-        builder.setNeutralButton(button_text) { dialog, _ ->
-            dialog.cancel()
-            dialog.dismiss()
-        }
-        builder.show()
-    }
-
-    fun getBitmapFromURL(imageUrl: String?): Bitmap? {
-        return try {
-            val url = URL(imageUrl)
-            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-            connection.setDoInput(true)
-            connection.connect()
-            val input: InputStream = connection.getInputStream()
-            BitmapFactory.decodeStream(input)
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
-        }
-    }
 }

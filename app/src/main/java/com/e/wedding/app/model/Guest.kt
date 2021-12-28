@@ -14,12 +14,6 @@ data class Guest(
     @SerializedName("convitetext1")
     @Expose
     val convitetext1: String,
-    @SerializedName("menuImagem")
-    @Expose
-    val menuImagem: String,
-    @SerializedName("lembrancaImagem")
-    @Expose
-    val lembrancaImagem: String,
 
     //Text strings
     //Invite

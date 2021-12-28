@@ -1,7 +1,10 @@
 package com.e.wedding.app.view.breakfast
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import com.bumptech.glide.Glide
 import com.e.wedding.R
 import com.e.wedding.app.base.BaseFragment
 import com.e.wedding.app.base.viewBinding
@@ -15,10 +18,19 @@ class BreakfastFragment : BaseFragment(R.layout.fragment_breakfast) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupUI()
+        setup()
     }
 
-    private fun setupUI() = with(binding) {
-        textBreakfast.text = DataHolder.getGuestLoggedIn()?.convitetext1 ?: "User ainda nao fez login"
+    private fun setup() {
+        Glide.with(this)
+            .load(DataHolder.getGuestLoggedIn()?.pequenoAlmocoImagen)
+            .into(binding.breakfastBackground)
+
+        binding.breakfastBackground.setOnClickListener {
+            val uri = DataHolder.getGuestLoggedIn()?.googleMapsPequenoAlmocoUrl
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            intent.setPackage("com.google.android.apps.maps")
+            startActivity(intent)
+        }
     }
 }
