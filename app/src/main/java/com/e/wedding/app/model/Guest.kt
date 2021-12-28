@@ -23,12 +23,18 @@ data class Guest(
 
     //Text strings
     //Invite
+    @SerializedName("convite")
+    @Expose
+    val convite: String,
     @SerializedName("conviteAceite")
     @Expose
     val conviteAceite: String,
     @SerializedName("conviteDetalhes")
     @Expose
     val conviteDetalhes: String,
+    @SerializedName("conviteBackground")
+    @Expose
+    val conviteBackground: List<String>,
 
     //Breakfast
     @SerializedName("pequenoAlmoco")
@@ -41,8 +47,35 @@ data class Guest(
     @Expose
     val googleMapsPequenoAlmoco: String,
 
-    //Menu menuDocumento
+    //Menu menu
+    @SerializedName("menu")
+    @Expose
+    val menu: String,
     @SerializedName("menuDocumento")
     @Expose
-    val menuDocumento: String
+    val menuDocumento: String,
+    @SerializedName("menuBackground")
+    @Expose
+    val menuBackground: List<String>,
+
+    //About
+    @SerializedName("acerca")
+    @Expose
+    val acerca: String,
+
+    //ceremony
+    @SerializedName("cerimonia")
+    @Expose
+    val cerimonia: String,
+
+    //engagement
+    @SerializedName("casamento")
+    @Expose
+    val casamento: String,
+
+    //gift
+    @SerializedName("presente")
+    @Expose
+    val presente: String
+
 )

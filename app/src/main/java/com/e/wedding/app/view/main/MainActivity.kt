@@ -1,6 +1,10 @@
 package com.e.wedding.app.view.main
 
 import android.app.AlertDialog
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,7 +16,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.findNavController
@@ -22,24 +27,34 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.e.wedding.R
 import com.e.wedding.app.api.GetAppConfigService
+import com.e.wedding.app.base.BaseActivity
+import com.e.wedding.app.base.viewBinding
+import com.e.wedding.app.base.viewModel
 import com.e.wedding.app.model.AppConfiguration
 import com.e.wedding.app.model.DataHolder
 import com.e.wedding.app.utils.Values
+import com.e.wedding.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
+import java.io.InputStream
+import java.net.HttpURLConnection
 import java.net.InetAddress
+import java.net.URL
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+    private val viewBinding by viewBinding(ActivityMainBinding::inflate)
+
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(viewBinding.root)
 
         initializeAppConfig()
 
@@ -51,14 +66,15 @@ class MainActivity : AppCompatActivity() {
             try {
                 InetAddress.getByName("google.com")
                 downloadParseConfigFile()
+
             } catch (e: Exception) {
                 runOnUiThread {
                     showErrorNeutralMessage(
-                            resources.getString(R.string.internet_title_dialog_alert),
-                            resources.getString(
-                                    R.string.internet_message_dialog_alert
-                            ),
-                            resources.getString(R.string.okay)
+                        resources.getString(R.string.internet_title_dialog_alert),
+                        resources.getString(
+                            R.string.internet_message_dialog_alert
+                        ),
+                        resources.getString(R.string.okay)
                     )
                 }
             }
@@ -77,30 +93,30 @@ class MainActivity : AppCompatActivity() {
         val appConfig: Call<AppConfiguration> = service.appConfig
         appConfig.enqueue(object : Callback<AppConfiguration> {
             override fun onResponse(
-                    call: Call<AppConfiguration>,
-                    response: Response<AppConfiguration>
+                call: Call<AppConfiguration>,
+                response: Response<AppConfiguration>
             ) {
                 val appBarConfiguration = response.body()
                 if (appBarConfiguration != null) {
                     DataHolder.setAppConfig(appBarConfiguration)
                 } else {
                     showErrorNeutralMessage(
-                            resources.getString(R.string.config_file_title_dialog_alert),
-                            resources.getString(
-                                    R.string.config_file_message_dialog_alert
-                            ),
-                            resources.getString(R.string.okay)
+                        resources.getString(R.string.config_file_title_dialog_alert),
+                        resources.getString(
+                            R.string.config_file_message_dialog_alert
+                        ),
+                        resources.getString(R.string.okay)
                     )
                 }
             }
 
             override fun onFailure(call: Call<AppConfiguration>, t: Throwable) {
                 showErrorNeutralMessage(
-                        resources.getString(R.string.config_file_title_dialog_alert),
-                        resources.getString(
-                                R.string.config_file_message_dialog_alert
-                        ),
-                        resources.getString(R.string.okay)
+                    resources.getString(R.string.config_file_title_dialog_alert),
+                    resources.getString(
+                        R.string.config_file_message_dialog_alert
+                    ),
+                    resources.getString(R.string.okay)
                 )
             }
 
@@ -119,6 +135,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupDrawerLayout() {
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -128,10 +145,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-                setOf(
-                        R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
-                        R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast
-                ), drawerLayout
+            setOf(
+                R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
+                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast, R.id.nav_gallery
+            ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -139,17 +156,36 @@ class MainActivity : AppCompatActivity() {
         val acc: DrawerListener = object : DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 // Action to onDrawerSlider
-                val userNameMenu: TextView? = findViewById(R.id.guest_name)
-                if(DataHolder.getGuestLoggedIn()!=null)
-                {
-                    userNameMenu?.text = DataHolder.getGuestLoggedIn()?.username
-
-                    if(DataHolder.getGuestLoggedIn()?.pequenoAlmoco=="true"){
+                if (DataHolder.getGuestLoggedIn() != null) {
+                    if (DataHolder.getGuestLoggedIn()?.pequenoAlmoco == "true") {
                         navView.menu.findItem(R.id.nav_breakfast).isVisible = true
                     }
-                }else{
-                    userNameMenu?.text = resources.getString(R.string.menu_guest_name)
+                    if (DataHolder.getGuestLoggedIn()?.convite == "true") {
+                        navView.menu.findItem(R.id.nav_invite).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.cerimonia == "true") {
+                        navView.menu.findItem(R.id.nav_ceremony).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.casamento == "true") {
+                        navView.menu.findItem(R.id.nav_engagement).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.menu == "true") {
+                        navView.menu.findItem(R.id.nav_food_menu).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.presente == "true") {
+                        navView.menu.findItem(R.id.nav_gift).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.acerca == "true") {
+                        navView.menu.findItem(R.id.nav_about_us).isVisible = true
+                    }
+                } else {
                     navView.menu.findItem(R.id.nav_breakfast).isVisible = false
+                    navView.menu.findItem(R.id.nav_invite).isVisible = false
+                    navView.menu.findItem(R.id.nav_ceremony).isVisible = false
+                    navView.menu.findItem(R.id.nav_engagement).isVisible = false
+                    navView.menu.findItem(R.id.nav_food_menu).isVisible = false
+                    navView.menu.findItem(R.id.nav_gift).isVisible = false
+                    navView.menu.findItem(R.id.nav_about_us).isVisible = false
                 }
             }
 
@@ -166,13 +202,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        drawerLayout.addDrawerListener(acc);
-
+        drawerLayout.addDrawerListener(acc)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
-    fun onLoginClick(view: View)
-    {
+    fun onLoginClick(view: View) {
         val logintextview: TextView = view.findViewById(R.id.button_login_main)
+
         when (logintextview.text) {
             resources.getString(R.string.button_text_login) -> {
                 val builder = AlertDialog.Builder(this)
@@ -204,6 +240,8 @@ class MainActivity : AppCompatActivity() {
                                 navController.navigateUp() // to clear previous navigation history
                                 navController.navigate(R.id.nav_home)
 
+                                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
                                 dialog.dismiss()
                             } else {
                                 errorLogin.text = resources.getString(R.string.error_wrong_user_details_msg)
@@ -224,6 +262,8 @@ class MainActivity : AppCompatActivity() {
                 val navController = findNavController(R.id.nav_host_fragment)
                 navController.navigateUp() // to clear previous navigation history
                 navController.navigate(R.id.nav_home)
+
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
         }
     }
@@ -245,9 +285,5 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    companion object {
-        const val TAG = "MainActivity"
     }
 }
