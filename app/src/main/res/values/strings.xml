@@ -48,4 +48,8 @@
     <string name="download_menu_not_found_title">We are very sorry!</string>
     <string name="download_menu_not_found_text">We could not find the menu, please enter in contact with us!</string>
 
+    <!-- Strings related to invite -->
+    <string name="download_invite_not_found_title">We are very sorry!</string>
+    <string name="download_invite_not_found_text">We could not find the invite, please enter in contact with us!</string>
+
 </resources>
