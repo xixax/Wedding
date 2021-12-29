@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Wedding</string>
-    <string name="menu_engagement">Copo de Agua</string>
+    <string name="app_name">Casamento</string>
+    <string name="menu_engagement">Copo de Água</string>
     <string name="menu_ceremony">Cerimonia</string>
     <string name="menu_invite">Convite</string>
     <string name="menu_gift">Lembranca</string>
