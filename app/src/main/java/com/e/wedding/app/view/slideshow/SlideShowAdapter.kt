@@ -1,6 +1,5 @@
 package com.e.wedding.app.view.slideshow
 
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,7 +7,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.e.wedding.R
 import com.e.wedding.app.base.Tagged
 import com.e.wedding.app.model.Image
-import com.e.wedding.app.utils.getColor
 import com.e.wedding.app.utils.load
 import com.e.wedding.app.view.gallery.ImageDiffUtil
 import com.e.wedding.databinding.ViewSlideShowItemBinding
@@ -47,8 +45,8 @@ class SlideShowAdapter : RecyclerView.Adapter<SlideShowAdapter.SlideShowViewHold
 
         fun bind(image: Image) = with(binding.ivImage) {
             val options = RequestOptions()
-                .placeholder(ColorDrawable(getColor(R.color.colorAccent)))
-                .error(ColorDrawable(getColor(R.color.colorPrimary)))
+                .placeholder(R.drawable.ic_image_placeholder)
+                .error(R.drawable.ic_image_broken)
             load(image.url, options)
         }
     }

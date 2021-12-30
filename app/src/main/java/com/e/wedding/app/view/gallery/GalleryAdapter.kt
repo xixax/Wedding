@@ -1,6 +1,5 @@
 package com.e.wedding.app.view.gallery
 
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,13 +7,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.e.wedding.R
 import com.e.wedding.app.base.Tagged
 import com.e.wedding.app.model.Image
-import com.e.wedding.app.utils.getColor
 import com.e.wedding.app.utils.load
 import com.e.wedding.databinding.ViewGalleryItemBinding
 
 class GalleryAdapter(
-    private val imageClick: (image: Image) -> Unit,
-    private val imageLongClick: (image: Image) -> Unit
+    private val imageClick: (image: Image) -> Unit
 ) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>(), Tagged {
 
     private val images = mutableListOf<Image>()
@@ -42,15 +39,11 @@ class GalleryAdapter(
 
     inner class GalleryViewHolder(val binding: ViewGalleryItemBinding) : RecyclerView.ViewHolder(binding.root) {
         private val options = RequestOptions()
-            .placeholder(ColorDrawable(binding.root.getColor(R.color.colorAccent)))
-            .error(ColorDrawable(binding.root.getColor(R.color.colorPrimary)))
+            .placeholder(R.drawable.ic_image_placeholder)
+            .error(R.drawable.ic_image_broken)
 
         fun bind(image: Image) = with(binding) {
             root.setOnClickListener { imageClick.invoke(image) }
-            root.setOnLongClickListener {
-                imageLongClick.invoke(image)
-                return@setOnLongClickListener true
-            }
             ivImage.load(image.url, options)
         }
     }

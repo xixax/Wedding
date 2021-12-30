@@ -17,13 +17,13 @@ class GalleryFragment : BaseFragment(R.layout.fragment_gallery) {
     private val viewModel by activityViewModel<ImageViewModel>()
 
     private val imageClick: (image: Image) -> Unit = { viewModel.imageClick(it) }
-    private val imageLongClick: (image: Image) -> Unit = { viewModel.imageLongClick(it) }
-    private val gridAdapter = GalleryAdapter(imageClick, imageLongClick)
+    private val gridAdapter = GalleryAdapter(imageClick)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
         setupObservers()
+        viewModel.getImages()
     }
 
     private fun setupUI() = with(binding.rvGallery) {

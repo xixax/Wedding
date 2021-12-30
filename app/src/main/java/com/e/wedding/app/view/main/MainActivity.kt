@@ -2,6 +2,7 @@ package com.e.wedding.app.view.main
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MotionEvent
@@ -135,7 +136,7 @@ class MainActivity : BaseActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
-                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast, R.id.nav_gallery,R.id.nav_schedule
+                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast, R.id.nav_gallery, R.id.nav_schedule
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -224,7 +225,8 @@ class MainActivity : BaseActivity() {
                     button.setOnClickListener {
                         try {
                             val guests = DataHolder.getAppConfig()?.convidados
-                            val guest = guests?.firstOrNull { g -> g.username == username.text.toString() && g.password == password.text.toString() }
+
+                            val guest = guests?.firstOrNull { it.username == username.text.toString().trim() && it.password == password.text.toString().trim() }
 
                             if (guest != null) {
                                 DataHolder.setGuestLoggedIn(guest)
