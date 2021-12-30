@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.e.wedding.app.model.Image
-import com.e.wedding.databinding.AboutUsRecyclerItemBinding
+import com.e.wedding.databinding.RecyclerAboutUsItemBinding
 
 class AboutUsAdapter(private val context: Context, private val images: List<Image>) :
     RecyclerView.Adapter<AboutUsAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: AboutUsRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: RecyclerAboutUsItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(image: Image) = with(binding) {
             Glide.with(context)
                 .load(image.url)
@@ -20,7 +20,7 @@ class AboutUsAdapter(private val context: Context, private val images: List<Imag
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AboutUsAdapter.ViewHolder {
-        return ViewHolder(AboutUsRecyclerItemBinding.inflate(LayoutInflater.from(context), parent, false))
+        return ViewHolder(RecyclerAboutUsItemBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
     override fun onBindViewHolder(holder: AboutUsAdapter.ViewHolder, position: Int) {

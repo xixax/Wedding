@@ -89,5 +89,16 @@ data class Guest(
     val galeriaVisivel: String,
     @SerializedName("galeriaBackground")
     @Expose
-    val galeriaBackground: List<String>
+    val galeriaBackground: List<String>,
+
+    //Schedule
+    @SerializedName("horarioVisivel")
+    @Expose
+    val horarioVisivel: String,
+    @SerializedName("horarioDocumento")
+    @Expose
+    val horarioDocumento: String,
+    @SerializedName("horarioBackground")
+    @Expose
+    val horarioBackground: List<String>,
 )

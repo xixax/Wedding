@@ -135,7 +135,7 @@ class MainActivity : BaseActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
-                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast, R.id.nav_gallery
+                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast, R.id.nav_gallery,R.id.nav_schedule
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -151,6 +151,7 @@ class MainActivity : BaseActivity() {
                 navView.menu.findItem(R.id.nav_gift).isVisible = false
                 navView.menu.findItem(R.id.nav_about_us).isVisible = false
                 navView.menu.findItem(R.id.nav_gallery).isVisible = false
+                navView.menu.findItem(R.id.nav_schedule).isVisible = false
                 // Action to onDrawerSlider
                 if (DataHolder.getGuestLoggedIn() != null) {
                     if (DataHolder.getGuestLoggedIn()?.pequenoAlmocoVisivel == "true") {
@@ -176,6 +177,9 @@ class MainActivity : BaseActivity() {
                     }
                     if (DataHolder.getGuestLoggedIn()?.galeriaVisivel == "true") {
                         navView.menu.findItem(R.id.nav_gallery).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.horarioVisivel == "true") {
+                        navView.menu.findItem(R.id.nav_schedule).isVisible = true
                     }
                 }
             }
