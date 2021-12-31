@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Casamento</string>
-    <string name="menu_engagement">Copo de Água</string>
-    <string name="menu_ceremony">Cerimonia</string>
+    <string name="menu_engagement">Copo d\'Água</string>
+    <string name="menu_ceremony">Cerimónia</string>
     <string name="menu_invite">Convite</string>
-    <string name="menu_gift">Lembranca</string>
-    <string name="menu_about_us">Sobre Nos</string>
+    <string name="menu_gift">Lembrança</string>
+    <string name="menu_about_us">Sobre Nós</string>
+    <string name="menu_home">Início</string>
+    <string name="menu_gallery">Galeria</string>
+    <string name="menu_slideshow">Fotos</string>
+    <string name="menu_menu">Menu</string>
+    <string name="menu_breakfast">Pequeno-almoço</string>
+    <string name="internet_message_dialog_alert">Olá! Obrigada por fazerem parte deste dia especial. Pedimos desculpa, mas sem acesso à internet algumas funcionalidades da app não estão disponíveis.</string>
+    <string name="internet_title_dialog_alert">Sem conexão à Internet</string>
+    <string name="menu_schedule">Horário</string>
+    <string name="config_file_message_dialog_alert">Pedimos desculpa, mas estamos com problemas no nosso sistema. Tentaremos resolver o mais depressa possível.</string>
+    <string name="button_text_cancel">Cancelar</string>
+    <string name="error_wrong_user_details_title">Credenciais Incorrectas</string>
+    <string name="error_wrong_user_details_msg">O teu username ou password podem estar incorrecta. Por favor tenta novamente ou contacta nos.</string>
+    <string name="error_login_title">Login falhou</string>
+    <string name="error_ceremony_map_title">Login falhou</string>
+    <string name="error_login_msg">Pedimos desculpa, mas a nossa página de login não está a funcionar. Por favor, mande-nos mensagem para ser resolvido o mais depressa possível.</string>
+    <string name="error_ceremony_map_msg">Pedimos desculpa, mas a nossa página da cerimónia não está a funcionar. Por favor, mande-nos mensagem para ser resolvido o mais depressa possível.</string>
+    <string name="download_menu_not_found_title">Desculpa</string>
+    <string name="download_invite_not_found_title">Desculpa</string>
+    <string name="download_menu_not_found_text">Não conseguimos encontrar o menu. Por favor, contacta-nos!</string>
+    <string name="download_invite_not_found_text">Não conseguimos encontrar o convite. Por favor, contacta-nos!</string>
+    <string name="download_schedule_not_found_text">Não conseguimos encontrar o horário. Por favor, contacta-nos!</string>
 </resources>

@@ -99,7 +99,7 @@ class ScheduleFragment : BaseFragment(R.layout.fragment_schedule) {
                     showErrorNeutralMessage(
                         resources.getString(R.string.download_invite_not_found_title),
                         resources.getString(
-                            R.string.download_invite_not_found_text
+                            R.string.download_schedule_not_found_text
                         ),
                         resources.getString(R.string.okay)
                     )
@@ -110,7 +110,7 @@ class ScheduleFragment : BaseFragment(R.layout.fragment_schedule) {
                 showErrorNeutralMessage(
                     resources.getString(R.string.download_invite_not_found_title),
                     resources.getString(
-                        R.string.download_invite_not_found_text
+                        R.string.download_schedule_not_found_text
                     ),
                     resources.getString(R.string.okay)
                 )
