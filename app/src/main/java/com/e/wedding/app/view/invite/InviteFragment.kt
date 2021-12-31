@@ -87,11 +87,11 @@ class InviteFragment : BaseFragment(R.layout.fragment_invite) {
                     val uri: Uri = Uri.parse(DataHolder.getGuestLoggedIn()?.conviteDocumento)
 
                     val request = DownloadManager.Request(uri)
-                    request.setTitle("JD_Wedding_Invite")
+                    request.setTitle("DJ_Wedding_Invite")
                     request.setDescription("Downloading")
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
 
-                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "JD_Wedding_Invite.pdf")
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "DJ_Wedding_Invite.pdf")
                     downloadmanager!!.enqueue(request)
                 }
             } else {

@@ -87,11 +87,11 @@ class MenuFragment : BaseFragment(R.layout.fragment_menu) {
                     val uri: Uri = Uri.parse(DataHolder.getGuestLoggedIn()?.menuDocumento)
 
                     val request = DownloadManager.Request(uri)
-                    request.setTitle("JD_Wedding_Menu")
+                    request.setTitle("DJ_Wedding_Menu")
                     request.setDescription("Downloading")
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
 
-                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "JD_Wedding_Menu.pdf")
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "DJ_Wedding_Menu.pdf")
                     downloadmanager!!.enqueue(request)
                 }
             } else {
