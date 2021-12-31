@@ -1,4 +1,4 @@
-package com.e.wedding.app.view.menu
+package com.e.wedding.app.view.schedule
 
 import android.Manifest
 import android.app.AlertDialog
@@ -17,13 +17,13 @@ import com.e.wedding.app.base.viewBinding
 import com.e.wedding.app.base.viewModel
 import com.e.wedding.app.model.DataHolder
 import com.e.wedding.app.model.Image
-import com.e.wedding.databinding.FragmentMenuBinding
+import com.e.wedding.app.view.invite.ScheduleViewModel
+import com.e.wedding.databinding.FragmentScheduleBinding
 import java.net.InetAddress
 
-
-class MenuFragment : BaseFragment(R.layout.fragment_menu) {
-    private val binding by viewBinding(FragmentMenuBinding::bind)
-    private val viewModel by viewModel<MenuViewModel>()
+class ScheduleFragment : BaseFragment(R.layout.fragment_schedule) {
+    private val binding by viewBinding(FragmentScheduleBinding::bind)
+    private val viewModel by viewModel<ScheduleViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,11 +31,11 @@ class MenuFragment : BaseFragment(R.layout.fragment_menu) {
     }
 
     private fun setupUI() = with(binding) {
-        menuPdfDownload.setOnClickListener {
+        schedulePdfDownload.setOnClickListener {
             val thread = Thread {
                 try {
                     InetAddress.getByName("google.com")
-                    menuPdfDownload()
+                    schedulePdfDownload()
                 } catch (e: Exception) {
                     activity?.runOnUiThread {
                         showErrorNeutralMessage(
@@ -51,23 +51,23 @@ class MenuFragment : BaseFragment(R.layout.fragment_menu) {
             thread.start()
         }
 
-        recyclerMenu.adapter = MenuAdapter(requireActivity(), GetMenuBackgroud())
-        recyclerMenu.layoutManager = LinearLayoutManager(requireActivity())
+        recyclerSchedule.adapter = ScheduleAdapter(requireActivity(), GetScheduleBackgroud())
+        recyclerSchedule.layoutManager = LinearLayoutManager(requireActivity())
     }
 
-
-    private fun GetMenuBackgroud(): List<Image> {
+    private fun GetScheduleBackgroud(): List<Image> {
         val images = mutableListOf<Image>()
-        if (DataHolder.getGuestLoggedIn()?.menuVisivel == "true"
-            && DataHolder.getGuestLoggedIn()?.menuBackground != null) {
-            for (s in DataHolder.getGuestLoggedIn()?.menuBackground!!) {
+        if (DataHolder.getGuestLoggedIn()?.horarioVisivel == "true"
+            && DataHolder.getGuestLoggedIn()?.horarioBackground != null) {
+            for (s in DataHolder.getGuestLoggedIn()?.horarioBackground!!) {
                 images.add(Image(s))
             }
         }
+        //add error message
         return images
     }
 
-    private fun menuPdfDownload() {
+    private fun schedulePdfDownload() {
         try {
             if (DataHolder.getGuestLoggedIn() != null) {
                 if (activity?.let {
@@ -84,22 +84,22 @@ class MenuFragment : BaseFragment(R.layout.fragment_menu) {
                 } else {
                     // Download code here
                     val downloadmanager = activity?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
-                    val uri: Uri = Uri.parse(DataHolder.getGuestLoggedIn()?.menuDocumento)
+                    val uri: Uri = Uri.parse(DataHolder.getGuestLoggedIn()?.horarioDocumento)
 
                     val request = DownloadManager.Request(uri)
-                    request.setTitle("JD_Wedding_Menu")
+                    request.setTitle("JD_Wedding_Invite")
                     request.setDescription("Downloading")
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
 
-                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "JD_Wedding_Menu.pdf")
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "JD_Wedding_Invite.pdf")
                     downloadmanager!!.enqueue(request)
                 }
             } else {
                 activity?.runOnUiThread {
                     showErrorNeutralMessage(
-                        resources.getString(R.string.download_menu_not_found_title),
+                        resources.getString(R.string.download_invite_not_found_title),
                         resources.getString(
-                            R.string.download_menu_not_found_text
+                            R.string.download_invite_not_found_text
                         ),
                         resources.getString(R.string.okay)
                     )
@@ -108,9 +108,9 @@ class MenuFragment : BaseFragment(R.layout.fragment_menu) {
         } catch (e: Exception) {
             activity?.runOnUiThread {
                 showErrorNeutralMessage(
-                    resources.getString(R.string.download_menu_not_found_title),
+                    resources.getString(R.string.download_invite_not_found_title),
                     resources.getString(
-                        R.string.download_menu_not_found_text
+                        R.string.download_invite_not_found_text
                     ),
                     resources.getString(R.string.okay)
                 )

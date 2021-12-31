@@ -21,6 +21,7 @@
     <string name="menu_gift">Gift</string>
     <string name="menu_about_us">About Us</string>
     <string name="menu_breakfast">Breakfast</string>
+    <string name="menu_schedule">Schedule</string>
 
     <!-- Strings related to get config -->
     <string name="internet_title_dialog_alert">No internet connection was found!</string>
@@ -47,5 +48,9 @@
     <!-- Strings related to menu -->
     <string name="download_menu_not_found_title">We are very sorry!</string>
     <string name="download_menu_not_found_text">We could not find the menu, please enter in contact with us!</string>
+
+    <!-- Strings related to invite -->
+    <string name="download_invite_not_found_title">We are very sorry!</string>
+    <string name="download_invite_not_found_text">We could not find the invite, please enter in contact with us!</string>
 
 </resources>

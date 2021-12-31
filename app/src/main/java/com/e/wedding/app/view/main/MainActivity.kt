@@ -1,11 +1,8 @@
 package com.e.wedding.app.view.main
 
 import android.app.AlertDialog
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MotionEvent
@@ -14,10 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.findNavController
@@ -29,7 +23,6 @@ import com.e.wedding.R
 import com.e.wedding.app.api.GetAppConfigService
 import com.e.wedding.app.base.BaseActivity
 import com.e.wedding.app.base.viewBinding
-import com.e.wedding.app.base.viewModel
 import com.e.wedding.app.model.AppConfiguration
 import com.e.wedding.app.model.DataHolder
 import com.e.wedding.app.utils.Values
@@ -40,11 +33,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
-import java.io.InputStream
-import java.net.HttpURLConnection
 import java.net.InetAddress
-import java.net.URL
 
 
 class MainActivity : BaseActivity() {
@@ -147,7 +136,7 @@ class MainActivity : BaseActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_invite, R.id.nav_ceremony, R.id.nav_engagement, R.id.nav_food_menu,
-                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast, R.id.nav_gallery
+                R.id.nav_gift, R.id.nav_about_us, R.id.nav_breakfast, R.id.nav_gallery, R.id.nav_schedule
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -155,37 +144,44 @@ class MainActivity : BaseActivity() {
 
         val acc: DrawerListener = object : DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                navView.menu.findItem(R.id.nav_breakfast).isVisible = false
+                navView.menu.findItem(R.id.nav_invite).isVisible = false
+                navView.menu.findItem(R.id.nav_ceremony).isVisible = false
+                navView.menu.findItem(R.id.nav_engagement).isVisible = false
+                navView.menu.findItem(R.id.nav_food_menu).isVisible = false
+                navView.menu.findItem(R.id.nav_gift).isVisible = false
+                navView.menu.findItem(R.id.nav_about_us).isVisible = false
+                navView.menu.findItem(R.id.nav_gallery).isVisible = false
+                navView.menu.findItem(R.id.nav_schedule).isVisible = false
                 // Action to onDrawerSlider
                 if (DataHolder.getGuestLoggedIn() != null) {
-                    if (DataHolder.getGuestLoggedIn()?.pequenoAlmoco == "true") {
+                    if (DataHolder.getGuestLoggedIn()?.pequenoAlmocoVisivel == "true") {
                         navView.menu.findItem(R.id.nav_breakfast).isVisible = true
                     }
-                    if (DataHolder.getGuestLoggedIn()?.convite == "true") {
+                    if (DataHolder.getGuestLoggedIn()?.conviteVisivel == "true") {
                         navView.menu.findItem(R.id.nav_invite).isVisible = true
                     }
-                    if (DataHolder.getGuestLoggedIn()?.cerimonia == "true") {
+                    if (DataHolder.getGuestLoggedIn()?.cerimoniaVisivel == "true") {
                         navView.menu.findItem(R.id.nav_ceremony).isVisible = true
                     }
-                    if (DataHolder.getGuestLoggedIn()?.casamento == "true") {
+                    if (DataHolder.getGuestLoggedIn()?.casamentoVisivel == "true") {
                         navView.menu.findItem(R.id.nav_engagement).isVisible = true
                     }
-                    if (DataHolder.getGuestLoggedIn()?.menu == "true") {
+                    if (DataHolder.getGuestLoggedIn()?.menuVisivel == "true") {
                         navView.menu.findItem(R.id.nav_food_menu).isVisible = true
                     }
-                    if (DataHolder.getGuestLoggedIn()?.presente == "true") {
+                    if (DataHolder.getGuestLoggedIn()?.presenteVisivel == "true") {
                         navView.menu.findItem(R.id.nav_gift).isVisible = true
                     }
-                    if (DataHolder.getGuestLoggedIn()?.acerca == "true") {
+                    if (DataHolder.getGuestLoggedIn()?.acercaVisivel == "true") {
                         navView.menu.findItem(R.id.nav_about_us).isVisible = true
                     }
-                } else {
-                    navView.menu.findItem(R.id.nav_breakfast).isVisible = false
-                    navView.menu.findItem(R.id.nav_invite).isVisible = false
-                    navView.menu.findItem(R.id.nav_ceremony).isVisible = false
-                    navView.menu.findItem(R.id.nav_engagement).isVisible = false
-                    navView.menu.findItem(R.id.nav_food_menu).isVisible = false
-                    navView.menu.findItem(R.id.nav_gift).isVisible = false
-                    navView.menu.findItem(R.id.nav_about_us).isVisible = false
+                    if (DataHolder.getGuestLoggedIn()?.galeriaVisivel == "true") {
+                        navView.menu.findItem(R.id.nav_gallery).isVisible = true
+                    }
+                    if (DataHolder.getGuestLoggedIn()?.horarioVisivel == "true") {
+                        navView.menu.findItem(R.id.nav_schedule).isVisible = true
+                    }
                 }
             }
 
@@ -229,7 +225,8 @@ class MainActivity : BaseActivity() {
                     button.setOnClickListener {
                         try {
                             val guests = DataHolder.getAppConfig()?.convidados
-                            val guest = guests?.firstOrNull { g -> g.username == username.text.toString() && g.password == password.text.toString() }
+
+                            val guest = guests?.firstOrNull { it.username == username.text.toString().trim() && it.password == password.text.toString().trim() }
 
                             if (guest != null) {
                                 DataHolder.setGuestLoggedIn(guest)
