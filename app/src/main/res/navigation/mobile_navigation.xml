@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_schedule"
             app:destination="@id/nav_schedule" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_tables"
+            app:destination="@id/nav_tables" />
     </fragment>
 
     <fragment
@@ -92,6 +95,12 @@
         android:name="com.e.wedding.app.view.schedule.ScheduleFragment"
         android:label="@string/menu_schedule"
         tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/nav_tables"
+        android:name="com.e.wedding.app.view.tables.TablesFragment"
+        android:label="@string/menu_tables"
+        tools:layout="@layout/fragment_tables" />
 
     <fragment
         android:id="@+id/nav_about_us"

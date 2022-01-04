@@ -27,4 +27,6 @@
     <string name="download_menu_not_found_text">Não conseguimos encontrar o menu. Por favor, contacta-nos!</string>
     <string name="download_invite_not_found_text">Não conseguimos encontrar o convite. Por favor, contacta-nos!</string>
     <string name="download_schedule_not_found_text">Não conseguimos encontrar o horário. Por favor, contacta-nos!</string>
+    <string name="menu_tables">Mesa</string>
+    <string name="download_tables_not_found_text">Não conseguimos encontrar a sua mesa. Por favor, contacta-nos!</string>
 </resources>

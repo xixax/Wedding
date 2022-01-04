@@ -101,4 +101,15 @@ data class Guest(
     @SerializedName("horarioBackground")
     @Expose
     val horarioBackground: List<String>,
+
+    //Schedule
+    @SerializedName("mesaVisivel")
+    @Expose
+    val mesaVisivel: String,
+    @SerializedName("mesaDocumento")
+    @Expose
+    val mesaDocumento: String,
+    @SerializedName("mesaBackground")
+    @Expose
+    val mesaBackground: List<String>
 )

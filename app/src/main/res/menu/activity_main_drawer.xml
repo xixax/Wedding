@@ -29,6 +29,10 @@
             android:icon="@drawable/ic_action_name"
             android:title="@string/menu_menu" />
         <item
+            android:id="@+id/nav_tables"
+            android:icon="@drawable/ic_action_name"
+            android:title="@string/menu_tables" />
+        <item
             android:id="@+id/nav_gift"
             android:icon="@drawable/ic_action_name"
             android:title="@string/menu_gift" />

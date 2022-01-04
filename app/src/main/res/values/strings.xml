@@ -22,6 +22,7 @@
     <string name="menu_about_us">About Us</string>
     <string name="menu_breakfast">Breakfast</string>
     <string name="menu_schedule">Schedule</string>
+    <string name="menu_tables">Your Table</string>
 
     <!-- Strings related to get config -->
     <string name="internet_title_dialog_alert">No internet connection was found!</string>
@@ -55,5 +56,8 @@
 
     <!-- Strings related to invite -->
     <string name="download_schedule_not_found_text">We could not find the schedule. Please, contact us!</string>
+
+    <!-- Strings related to tables -->
+    <string name="download_tables_not_found_text">We could not find the tables. Please, contact us!</string>
 
 </resources>
