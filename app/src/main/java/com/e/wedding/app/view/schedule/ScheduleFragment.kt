@@ -87,11 +87,11 @@ class ScheduleFragment : BaseFragment(R.layout.fragment_schedule) {
                     val uri: Uri = Uri.parse(DataHolder.getGuestLoggedIn()?.horarioDocumento)
 
                     val request = DownloadManager.Request(uri)
-                    request.setTitle("JD_Wedding_Invite")
+                    request.setTitle("DJ_Wedding_Schedule")
                     request.setDescription("Downloading")
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
 
-                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "JD_Wedding_Invite.pdf")
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "DJ_Wedding_Schedule.pdf")
                     downloadmanager!!.enqueue(request)
                 }
             } else {
@@ -99,7 +99,7 @@ class ScheduleFragment : BaseFragment(R.layout.fragment_schedule) {
                     showErrorNeutralMessage(
                         resources.getString(R.string.download_invite_not_found_title),
                         resources.getString(
-                            R.string.download_invite_not_found_text
+                            R.string.download_schedule_not_found_text
                         ),
                         resources.getString(R.string.okay)
                     )
@@ -110,7 +110,7 @@ class ScheduleFragment : BaseFragment(R.layout.fragment_schedule) {
                 showErrorNeutralMessage(
                     resources.getString(R.string.download_invite_not_found_title),
                     resources.getString(
-                        R.string.download_invite_not_found_text
+                        R.string.download_schedule_not_found_text
                     ),
                     resources.getString(R.string.okay)
                 )
